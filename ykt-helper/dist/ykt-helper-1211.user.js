@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         AI雨课堂助手（JS版）
 // @namespace    https://github.com/ZaytsevZY/yuketang-helper-auto
-// @version      1.21.3
+// @version      1.21.4
 // @description  课堂习题提示，AI解答习题
 // @license      MIT
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=yuketang.cn
@@ -265,37 +265,37 @@
     const AI_PRESETS = {
     "longcat-flash": {
       name: "LongCat Flash",
-      baseUrl: "https://api.longcat.chat/openai/v1/chat/completions",
+      baseUrl: "https://api.longcat.chat/openai",
       model: "LongCat-Flash-Chat",
       visionModel: "LongCat-Flash-Omni-2603"
     },
     "longcat-omni": {
       name: "LongCat Omni",
-      baseUrl: "https://api.longcat.chat/openai/v1/chat/completions",
+      baseUrl: "https://api.longcat.chat/openai",
       model: "LongCat-Flash-Omni-2603",
       visionModel: "LongCat-Flash-Omni-2603"
     },
     "longcat-thinking": {
       name: "LongCat Thinking",
-      baseUrl: "https://api.longcat.chat/openai/v1/chat/completions",
+      baseUrl: "https://api.longcat.chat/openai",
       model: "LongCat-Flash-Thinking-2601",
       visionModel: "LongCat-Flash-Omni-2603"
     },
     kimi: {
       name: "Kimi",
-      baseUrl: "https://api.moonshot.cn/v1/chat/completions",
+      baseUrl: "https://api.moonshot.cn",
       model: "moonshot-v1-8k",
       visionModel: "moonshot-v1-8k-vision-preview"
     },
     openai: {
       name: "OpenAI GPT-4o",
-      baseUrl: "https://api.openai.com/v1/chat/completions",
+      baseUrl: "https://api.openai.com",
       model: "gpt-4o-mini",
       visionModel: "gpt-4o"
     },
     deepseek: {
       name: "DeepSeek",
-      baseUrl: "https://api.deepseek.com/v1/chat/completions",
+      baseUrl: "https://api.deepseek.com",
       model: "deepseek-chat",
       visionModel: "deepseek-chat"
     }
@@ -651,9 +651,9 @@
     return p;
   }
   function makeChatUrl(profile) {
-    //   const base = (profile.baseUrl || 'https://api.moonshot.cn').replace(/\/+$/,'');
-    //   return `${base}/v1/chat/completions`;   
-    return profile.baseUrl;
+    let base = (profile.baseUrl || "https://api.moonshot.cn/v1/chat/completions").replace(/\/+$/, "");
+    if (!base.includes("/chat/completions")) if (base.includes("/v1")) base += "/chat/completions"; else if (base.includes("/openai")) base += "/v1/chat/completions"; else base += "/v1/chat/completions";
+    return base;
   }
   // -----------------------------------------------
   // Unified Prompt blocks for Text & Vision

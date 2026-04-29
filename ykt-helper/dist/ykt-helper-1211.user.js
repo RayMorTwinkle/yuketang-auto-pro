@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         AI雨课堂助手（JS版）
 // @namespace    https://github.com/ZaytsevZY/yuketang-helper-auto
-// @version      1.21.5
+// @version      1.21.6
 // @description  课堂习题提示，AI解答习题
 // @license      MIT
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=yuketang.cn
@@ -267,19 +267,22 @@
       name: "LongCat Flash",
       baseUrl: "https://api.longcat.chat/openai",
       model: "LongCat-Flash-Chat",
-      visionModel: "LongCat-Flash-Omni-2603"
+      visionModel: "LongCat-Flash-Omni-2603",
+      apiKey: "ak_2UE1Xk5Ac13X8sS1Ql1sE0DO6vG7C"
     },
     "longcat-omni": {
       name: "LongCat Omni",
       baseUrl: "https://api.longcat.chat/openai",
       model: "LongCat-Flash-Omni-2603",
-      visionModel: "LongCat-Flash-Omni-2603"
+      visionModel: "LongCat-Flash-Omni-2603",
+      apiKey: "ak_2UE1Xk5Ac13X8sS1Ql1sE0DO6vG7C"
     },
     "longcat-thinking": {
       name: "LongCat Thinking",
       baseUrl: "https://api.longcat.chat/openai",
       model: "LongCat-Flash-Thinking-2601",
-      visionModel: "LongCat-Flash-Omni-2603"
+      visionModel: "LongCat-Flash-Omni-2603",
+      apiKey: "ak_2UE1Xk5Ac13X8sS1Ql1sE0DO6vG7C"
     },
     kimi: {
       name: "Kimi",
@@ -409,7 +412,10 @@
       $baseUrl.value = preset.baseUrl;
       $model.value = preset.model;
       $visionModel.value = preset.visionModel;
-      ui.toast(`已应用预设: ${preset.name}，请填写 API Key`, 3e3);
+      if (preset.apiKey) {
+        $api.value = preset.apiKey;
+        ui.toast(`已应用预设: ${preset.name}，API Key 已自动填充`, 3e3);
+      } else ui.toast(`已应用预设: ${preset.name}，请填写 API Key`, 3e3);
       $presetSelect.value = "";
     });
     // 添加 profile
